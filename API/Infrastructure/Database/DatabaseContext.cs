@@ -16,10 +16,27 @@ public class DatabaseContext : DbContext
         .HasOne(x => x.Doctor)
         .WithMany(x => x.Available_Days)
         .HasForeignKey(x => x.Doctor_Id);
+
+        modelBuilder.Entity<AppointmentsEntity>()
+        .HasOne(x => x.Patient)
+        .WithMany(x => x.Appointments)
+        .HasForeignKey(x => x.Patient_Id);
+
+        modelBuilder.Entity<AppointmentsEntity>()
+        .HasOne(x => x.Doctor)
+        .WithMany(x => x.Appointments)
+        .HasForeignKey(x => x.Doctor_Id);
+
+        modelBuilder.Entity<AppointmentsEntity>()
+        .HasOne(x => x.Date)
+        .WithOne(x => x.Appointment)
+        .HasForeignKey<AppointmentsEntity>(x => x.Doctors_Days_Available_Id);
     }
 
 
     DbSet<AdministratorsEntity> Administrators { get; set; } = default!;
     DbSet<DoctorsEntity> Doctors { get; set; } = default!;
     DbSet<DoctorsDaysAvailableEntity> Doctors_Avaiable_Days { get; set; } = default!;
+    DbSet<PatientsEntity> Patients { get; set; } = default!;
+    DbSet<AppointmentsEntity> Appointments { get; set; } = default!;
 }

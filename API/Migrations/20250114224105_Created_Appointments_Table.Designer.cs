@@ -4,6 +4,7 @@ using Api.Infrastructure.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20250114224105_Created_Appointments_Table")]
+    partial class Created_Appointments_Table
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -54,9 +57,6 @@ namespace API.Migrations
                     b.Property<int>("Doctor_Id")
                         .HasColumnType("int");
 
-                    b.Property<int>("Doctors_Days_Available_Id")
-                        .HasColumnType("int");
-
                     b.Property<int>("Patient_Id")
                         .HasColumnType("int");
 
@@ -70,12 +70,9 @@ namespace API.Migrations
 
                     b.HasIndex("Doctor_Id");
 
-                    b.HasIndex("Doctors_Days_Available_Id")
-                        .IsUnique();
-
                     b.HasIndex("Patient_Id");
 
-                    b.ToTable("Appointments");
+                    b.ToTable("AppointmentsEntity");
                 });
 
             modelBuilder.Entity("Api.Domain.Entities.DoctorsDaysAvailableEntity", b =>
@@ -174,19 +171,11 @@ namespace API.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Api.Domain.Entities.DoctorsDaysAvailableEntity", "Date")
-                        .WithOne("Appointment")
-                        .HasForeignKey("Api.Domain.Entities.AppointmentsEntity", "Doctors_Days_Available_Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Api.Domain.Entities.PatientsEntity", "Patient")
                         .WithMany("Appointments")
                         .HasForeignKey("Patient_Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Date");
 
                     b.Navigation("Doctor");
 
@@ -202,12 +191,6 @@ namespace API.Migrations
                         .IsRequired();
 
                     b.Navigation("Doctor");
-                });
-
-            modelBuilder.Entity("Api.Domain.Entities.DoctorsDaysAvailableEntity", b =>
-                {
-                    b.Navigation("Appointment")
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("Api.Domain.Entities.DoctorsEntity", b =>

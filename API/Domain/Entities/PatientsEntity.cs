@@ -4,25 +4,28 @@ using Api.Utils.Enums;
 
 namespace Api.Domain.Entities;
 
-public class DoctorsEntity 
+public class PatientsEntity
 {
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int Id { get; set; } = default!;
 
     [Required]
+    public string Cpf { get; set; } = default!;
+
+    [Required]
     public string Name { get; set; } = default!;
 
     [Required]
-    public string User { get; set; } = default!;
+    public int Age { get; set; } = default!;
 
     [Required]
-    public string Password { get; set; } = default!;
+    public DateOnly Birth_Date { get; set; } = default!;
 
     [Required]
-    public DoctorsSpecialties Specialty { get; set; } = default!;
+    public Gender Gender { get; set; } = default!;
 
-    public ICollection<DoctorsDaysAvailableEntity> Available_Days { get; set; } = default!; 
+    public string? Observations { get; set; }
 
     public ICollection<AppointmentsEntity> Appointments { get; set; } = default!;
-}
+}   

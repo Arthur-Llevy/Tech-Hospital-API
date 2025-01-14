@@ -23,4 +23,6 @@ public class DoctorsDaysAvailableEntity
 
     [ForeignKey(nameof(Doctor_Id))]
     public DoctorsEntity Doctor { get; set; } = default!;
+
+    public AppointmentsEntity Appointment { get; set; } = default!; 
 }

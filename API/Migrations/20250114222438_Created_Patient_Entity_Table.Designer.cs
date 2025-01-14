@@ -4,6 +4,7 @@ using Api.Infrastructure.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20250114222438_Created_Patient_Entity_Table")]
+    partial class Created_Patient_Entity_Table
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -41,41 +44,6 @@ namespace API.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Administrators");
-                });
-
-            modelBuilder.Entity("Api.Domain.Entities.AppointmentsEntity", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("Doctor_Id")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Doctors_Days_Available_Id")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Patient_Id")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Status")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Type")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Doctor_Id");
-
-                    b.HasIndex("Doctors_Days_Available_Id")
-                        .IsUnique();
-
-                    b.HasIndex("Patient_Id");
-
-                    b.ToTable("Appointments");
                 });
 
             modelBuilder.Entity("Api.Domain.Entities.DoctorsDaysAvailableEntity", b =>
@@ -121,8 +89,9 @@ namespace API.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<int>("Specialty")
-                        .HasColumnType("int");
+                    b.Property<string>("Specialty")
+                        .IsRequired()
+                        .HasColumnType("longtext");
 
                     b.Property<string>("User")
                         .IsRequired()
@@ -166,33 +135,6 @@ namespace API.Migrations
                     b.ToTable("Patients");
                 });
 
-            modelBuilder.Entity("Api.Domain.Entities.AppointmentsEntity", b =>
-                {
-                    b.HasOne("Api.Domain.Entities.DoctorsEntity", "Doctor")
-                        .WithMany("Appointments")
-                        .HasForeignKey("Doctor_Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Api.Domain.Entities.DoctorsDaysAvailableEntity", "Date")
-                        .WithOne("Appointment")
-                        .HasForeignKey("Api.Domain.Entities.AppointmentsEntity", "Doctors_Days_Available_Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Api.Domain.Entities.PatientsEntity", "Patient")
-                        .WithMany("Appointments")
-                        .HasForeignKey("Patient_Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Date");
-
-                    b.Navigation("Doctor");
-
-                    b.Navigation("Patient");
-                });
-
             modelBuilder.Entity("Api.Domain.Entities.DoctorsDaysAvailableEntity", b =>
                 {
                     b.HasOne("Api.Domain.Entities.DoctorsEntity", "Doctor")
@@ -204,22 +146,9 @@ namespace API.Migrations
                     b.Navigation("Doctor");
                 });
 
-            modelBuilder.Entity("Api.Domain.Entities.DoctorsDaysAvailableEntity", b =>
-                {
-                    b.Navigation("Appointment")
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("Api.Domain.Entities.DoctorsEntity", b =>
                 {
-                    b.Navigation("Appointments");
-
                     b.Navigation("Available_Days");
-                });
-
-            modelBuilder.Entity("Api.Domain.Entities.PatientsEntity", b =>
-                {
-                    b.Navigation("Appointments");
                 });
 #pragma warning restore 612, 618
         }
