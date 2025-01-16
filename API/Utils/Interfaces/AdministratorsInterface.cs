@@ -11,5 +11,5 @@ public interface AdministratorsInterface
     Task CreateNewAdministrator(AdministratorsDTO AdminitratorDTO);
     Task<AdministratorsModelView?> DeleteOneAdministrator(int Id);
     Task<AdministratorsModelView?> UpdateOneAdministrator(AdministratorsDTO administrator, int Id);
-    Task<Dictionary<string, string>?> AdministratorLogin(AdministratorLoginDTO administratorLoginDto);    
+    Task<Dictionary<string, string>?> AdministratorLogin(LoginDTO administratorLoginDto);    
 }

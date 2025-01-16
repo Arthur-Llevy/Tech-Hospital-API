@@ -20,7 +20,7 @@ public class DoctorsEntity
     public string Password { get; set; } = default!;
 
     [Required]
-    public DoctorsSpecialties Specialty { get; set; } = default!;
+    public string Specialty { get; set; } = default!;
 
     public ICollection<DoctorsDaysAvailableEntity> Available_Days { get; set; } = default!; 
 

@@ -38,7 +38,7 @@ public class AdministratorsServices : AdministratorsInterface
         }
     }
 
-    public async Task<Dictionary<string, string>?> AdministratorLogin(AdministratorLoginDTO administratorLoginDto)
+    public async Task<Dictionary<string, string>?> AdministratorLogin(LoginDTO administratorLoginDto)
     {
         var hasAdministratorWithThisCredentials = await _context.Administrators
         .Where(x => x.User == administratorLoginDto.User && x.Password == administratorLoginDto.Password.GenerateHash())
@@ -46,7 +46,7 @@ public class AdministratorsServices : AdministratorsInterface
 
         if (hasAdministratorWithThisCredentials != null)
         {
-            return new Dictionary<string, string>{ { "Token", TokenService.Generate(hasAdministratorWithThisCredentials) }};
+            return new Dictionary<string, string>{ { "Token", TokenService.GenerateAdministratorToken(hasAdministratorWithThisCredentials) }};
         }
 
         return null;

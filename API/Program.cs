@@ -23,6 +23,7 @@ namespace Program
             builder.Services.AddOpenApi();
             builder.Services.AddTransient<TokenService>();
             builder.Services.AddScoped<AdministratorsInterface, AdministratorsServices>();
+            builder.Services.AddScoped<DoctorsInterface, DoctorsServices>();
 
             builder.Services.AddCors(options => 
             {

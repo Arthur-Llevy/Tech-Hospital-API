@@ -1,23 +1,18 @@
-using Api.Domain.Entities;
-using Api.Utils.Enums;
 using Api.Utils.Interfaces;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
-using Api.Utils.Jwt;
 using Api.Domain.DTOs;
-using Api.Domain.ModelsViews;
 
 namespace Api.Controllers;
 
 [ApiController]
-[Route("/administrators")]
-public class AdministratorsController : ControllerBase
+[Route("/doctors")]
+public class DoctorsController : ControllerBase
 {
-    private readonly AdministratorsInterface _administratorServices;
-    public AdministratorsController(AdministratorsInterface administratorServices)
+    private readonly DoctorsInterface _doctorsServices;
+    public DoctorsController(DoctorsInterface doctorsServices)
     {
-        _administratorServices = administratorServices;
+        _doctorsServices = doctorsServices;
     }
 
     [Authorize]
@@ -25,7 +20,7 @@ public class AdministratorsController : ControllerBase
     public async Task<IActionResult> GetAll()
     {
         try {
-            var administrators = await _administratorServices.GetAll();
+            var administrators = await _doctorsServices.GetAll();
             return Ok(administrators);
         } catch (Exception error)
         {
@@ -39,7 +34,7 @@ public class AdministratorsController : ControllerBase
     {
         try
         {
-            var result = await _administratorServices.GetById(Id);
+            var result = await _doctorsServices.GetById(Id);
             if (result != null)
             {
                 return Ok(result);
@@ -53,15 +48,15 @@ public class AdministratorsController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> CreateNewAdministrator(AdministratorsDTO administratorsDTO)
+    public async Task<IActionResult> CreateNewDoctor(DoctorsDTO doctorsDTo)
     {
         try 
         {
-            await _administratorServices.CreateNewAdministrator(administratorsDTO);
-            return Ok("Novo administrador criado com sucesso!");
+            await _doctorsServices.CreateNewDoctor(doctorsDTo);
+            return Ok("Novo doutor criado com sucesso!");
         } catch (Exception error)
         {
-            throw new Exception($"Algo deu errado ao criar um novo administrador. Tente novamente mais tarde. {error}");
+            throw new Exception($"Algo deu errado ao criar um novo doutor. Tente novamente mais tarde. {error}");
         }
     }
 
@@ -71,7 +66,7 @@ public class AdministratorsController : ControllerBase
     {
         try
         {
-            var result = await _administratorServices.DeleteOneAdministrator(id);
+            var result = await _doctorsServices.DeleteOneDoctor(id);
             if (result != null)
             {
                 return Ok(result);
@@ -79,17 +74,17 @@ public class AdministratorsController : ControllerBase
             return NotFound();
         } catch (Exception error)
         {
-            throw new Exception($"Algo deu errado ao tentar excluir o administrador. Tente novamente mais tarde. {error}");
+            throw new Exception($"Algo deu errado ao tentar excluir o doutor. Tente novamente mais tarde. {error}");
         }
     }
 
     [Authorize]
     [HttpPatch("{id}")]
-    public async Task<IActionResult> UpdateOneAdministrator(AdministratorsDTO administrator, int id)
+    public async Task<IActionResult> UpdateOneDoctor(DoctorsDTO doctorsDTO, int id)
     {
         try
         {
-            var result = await _administratorServices.UpdateOneAdministrator(administrator, id);
+            var result = await _doctorsServices.UpdateOneDOctor(doctorsDTO, id);
             if (result != null)
             {
                 return Ok(result);
@@ -97,16 +92,16 @@ public class AdministratorsController : ControllerBase
             return NotFound();
         } catch (Exception error)
         {
-            throw new Exception($"Algo deu errado ao realizar tentar atualizar este administrador. Tente novamente mais tarde. {error}");
+            throw new Exception($"Algo deu errado ao realizar tentar atualizar este doutor. Tente novamente mais tarde. {error}");
         }
     }
 
-    [HttpPost("/administrators/login")]
-    public async Task<IActionResult> Login(LoginDTO administratorLoginDTO)
+    [HttpPost("/doctors/login")]
+    public async Task<IActionResult> Login(LoginDTO loginDTO)
     {
         try
         {
-            var result = await _administratorServices.AdministratorLogin(administratorLoginDTO);
+            var result = await _doctorsServices.DoctorLogin(loginDTO);
             if (result != null)
             {
                 return Ok(result);
