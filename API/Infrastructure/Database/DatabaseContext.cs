@@ -7,10 +7,15 @@ public class DatabaseContext : DbContext
 {
     public DatabaseContext(DbContextOptions options) : base (options)
     {
-
     }
 
-    protected void OModelCreating(ModelBuilder modelBuilder)
+    public DbSet<AdministratorsEntity> Administrators { get; set; } = default!;
+    public DbSet<DoctorsEntity> Doctors { get; set; } = default!;
+    public DbSet<DoctorsDaysAvailableEntity> Doctors_Avaiable_Days { get; set; } = default!;
+    public DbSet<PatientsEntity> Patients { get; set; } = default!;
+    public DbSet<AppointmentsEntity> Appointments { get; set; } = default!;
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<DoctorsDaysAvailableEntity>()
         .HasOne(x => x.Doctor)
@@ -34,9 +39,5 @@ public class DatabaseContext : DbContext
     }
 
 
-    DbSet<AdministratorsEntity> Administrators { get; set; } = default!;
-    DbSet<DoctorsEntity> Doctors { get; set; } = default!;
-    DbSet<DoctorsDaysAvailableEntity> Doctors_Avaiable_Days { get; set; } = default!;
-    DbSet<PatientsEntity> Patients { get; set; } = default!;
-    DbSet<AppointmentsEntity> Appointments { get; set; } = default!;
+    
 }
