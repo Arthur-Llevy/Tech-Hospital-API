@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 using Api.Utils.Enums;
 
 namespace Api.Domain.Entities;
@@ -22,7 +23,9 @@ public class DoctorsEntity
     [Required]
     public string Specialty { get; set; } = default!;
 
+    [JsonIgnore]
     public ICollection<DoctorsDaysAvailableEntity> Available_Days { get; set; } = default!; 
 
+    [JsonIgnore]
     public ICollection<AppointmentsEntity> Appointments { get; set; } = default!;
 }

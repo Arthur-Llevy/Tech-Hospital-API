@@ -1,3 +1,4 @@
+using System.Text.Json.Serialization;
 using Api.Domain.Entities;
 using Api.Utils.Enums;
 
@@ -11,5 +12,6 @@ public class PatientsDTO
     public DateOnly Birth_Date { get; set; } = default!;
     public Gender Gender { get; set; } = default!;
     public string? Observations { get; set; }
+
     public ICollection<AppointmentsEntity?>? Appointments { get; set; } = default!;
 }
