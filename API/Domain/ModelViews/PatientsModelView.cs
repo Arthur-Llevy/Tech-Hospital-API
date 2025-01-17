@@ -1,31 +1,16 @@
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+using Api.Domain.Entities;
 using Api.Utils.Enums;
 
-namespace Api.Domain.Entities;
+namespace Api.Domain.ModelsViews;
 
-public class PatientsEntity
+public class PatientsModelView
 {
-    [Key]
-    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int Id { get; set; } = default!;
-
-    [Required]
     public string Cpf { get; set; } = default!;
-
-    [Required]
     public string Name { get; set; } = default!;
-
-    [Required]
     public int Age { get; set; } = default!;
-
-    [Required]
     public DateOnly Birth_Date { get; set; } = default!;
-
-    [Required]
-    public Gender Gender { get; set; } = default!;
-
+    public string Gender { get; set; } = default!;
     public string? Observations { get; set; }
-
     public ICollection<AppointmentsEntity?> Appointments { get; set; } = default!;
-}   
+}

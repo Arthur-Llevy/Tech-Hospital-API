@@ -24,6 +24,7 @@ namespace Program
             builder.Services.AddTransient<TokenService>();
             builder.Services.AddScoped<AdministratorsInterface, AdministratorsServices>();
             builder.Services.AddScoped<DoctorsInterface, DoctorsServices>();
+            builder.Services.AddScoped<PatientsInterface, PatientsServices>();
 
             builder.Services.AddCors(options => 
             {
