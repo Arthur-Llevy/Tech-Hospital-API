@@ -26,6 +26,7 @@ namespace Program
             builder.Services.AddScoped<DoctorsInterface, DoctorsServices>();
             builder.Services.AddScoped<PatientsInterface, PatientsServices>();
             builder.Services.AddScoped<AppointmentsInterface, AppointmentsServices>();
+            builder.Services.AddScoped<DoctorsDaysAvailableInterface, DoctorsDaysAvailableServices>();
 
             builder.Services.AddCors(options => 
             {
