@@ -15,7 +15,6 @@ public class AppointmentsController : ControllerBase
         _appointmentsServices = appointmentsServices;
     }
 
-    [Authorize]
     [HttpGet]
     public async Task<IActionResult> GetAll()
     {
@@ -28,7 +27,6 @@ public class AppointmentsController : ControllerBase
         }
     }
 
-    [Authorize]
     [HttpGet("{id}")]
     public async Task<IActionResult?> GetById(int Id)
     {
